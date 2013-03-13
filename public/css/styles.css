@@ -86,15 +86,15 @@ h1, h2 {
   stroke: #666;
 }
 
-#hour-chart {
+#qa_score-chart {
   width: 260px;
 }
 
-#delay-chart {
+#survey_score-chart {
   width: 230px;
 }
 
-#distance-chart {
+#duration-chart {
   width: 420px;
 }
 
@@ -124,7 +124,7 @@ h1, h2 {
 
 #flight-list .flight div {
   display: inline-block;
-  width: 100px;
+  width: 120px;
 }
 
 #flight-list div.distance,
