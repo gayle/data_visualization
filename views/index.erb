@@ -59,16 +59,16 @@ d3.csv("data/data.json", function(flights) {
   });
 
   // Create the crossfilter for the relevant dimensions and groups.
-  var flight = crossfilter(flights),
-      all = flight.groupAll(),
-      date = flight.dimension(function(d) { return d3.time.day(d.date); }),
-      dates = date.group(),
-      qa_score = flight.dimension(function(d) { return d.qa_score }),
-      qa_scores = qa_score.group(function(d) { return Math.floor(d / 10) * 10; }),
-      survey_score = flight.dimension(function(d) { return d.survey_score }),
-      survey_scores = survey_score.group(function(d) { return Math.floor(d / 1); }),
-      duration = flight.dimension(function(d) { return Math.min(1600, d.duration); }),
-      durations = duration.group(function(d) { return Math.floor(d / 50) * 50; });
+  var flight = crossfilter(flights);
+  var all = flight.groupAll();
+  var date = flight.dimension(function(d) { return d3.time.day(d.date); });
+  var dates = date.group();
+  var qa_score = flight.dimension(function(d) { return (d.qa_possible_score > 0) ? d.qa_score : -1 ; });
+  var qa_scores = qa_score.group(function(d) { return Math.floor(d / 10) * 10; });
+  var survey_score = flight.dimension(function(d) { return (d.survey_possible_score > 0) ? d.survey_score : -1 ; });
+  var survey_scores = survey_score.group(function(d) { return Math.floor(d); });
+  var duration = flight.dimension(function(d) { return Math.min(1600, d.duration); });
+  var durations = duration.group(function(d) { return Math.floor(d / 50) * 50; });
 
   var charts = [
 

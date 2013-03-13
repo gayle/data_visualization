@@ -1,8 +1,8 @@
-date,agent_name,duration,qa_score,survey_score
-01010001,Billy,1537,20,8
-01110530,Adam,324,20,4
-02060540,Timmy,106,23,2
-02200600,Sally,215,89,9
-03060600,Ed,235,75,10
-03060605,Alejandro,742,67,7
-03300610,Gandolf,38,83,4
+date,agent_name,duration,qa_score,qa_possible_score,survey_score,survey_possible_score
+01010001,Billy,1537,0,100,8,10
+01110530,Adam,324,0,0,0,0
+02060540,Timmy,106,23,100,0,10
+02200600,Sally,215,89,100,2,10
+03060600,Ed,235,75,100,10,10
+03060605,Alejandro,742,67,100,4,10
+03300610,Gandolf,38,83,100,4,10
