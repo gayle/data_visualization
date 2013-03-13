@@ -38,7 +38,7 @@
 <script>
 
 // (It's CSV, but GitHub Pages only gzip's JSON at the moment.)
-d3.csv("data/data.json", function(flights) {
+d3.csv("data/uhaul_data.csv.large", function(flights) {
 
   // Various formatters.
   var formatNumber = d3.format(",d"),
@@ -63,10 +63,10 @@ d3.csv("data/data.json", function(flights) {
   var all = flight.groupAll();
   var date = flight.dimension(function(d) { return d3.time.day(d.date); });
   var dates = date.group();
-  var qa_score = flight.dimension(function(d) { return (d.qa_possible_score > 0) ? d.qa_score : -1 ; });
+  var qa_score = flight.dimension(function(d) { return (d.qa_poss_score > 0) ? d.qa_score : -1 ; });
   var qa_scores = qa_score.group(function(d) { return Math.floor(d / 10) * 10; });
-  var survey_score = flight.dimension(function(d) { return (d.survey_possible_score > 0) ? d.survey_score : -1 ; });
-  var survey_scores = survey_score.group(function(d) { return Math.floor(d); });
+  var survey_score = flight.dimension(function(d) { return (d.survey_poss_score > 0) ? d.survey_score : -1 ; });
+  var survey_scores = survey_score.group(function(d) { return Math.floor(d / 10) * 10; });
   var duration = flight.dimension(function(d) { return Math.min(1600, d.duration); });
   var durations = duration.group(function(d) { return Math.floor(d / 50) * 50; });
 
@@ -83,7 +83,7 @@ d3.csv("data/data.json", function(flights) {
         .dimension(survey_score)
         .group(survey_scores)
       .x(d3.scale.linear()
-        .domain([0, 11])
+        .domain([0, 100])
         .rangeRound([0, 10 * 21])),
 
     barChart()
@@ -98,7 +98,7 @@ d3.csv("data/data.json", function(flights) {
         .group(dates)
         .round(d3.time.day.round)
       .x(d3.time.scale()
-        .domain([new Date(2001, 0, 1), new Date(2001, 3, 1)])
+        .domain([new Date(2012, 9, 1), new Date(2012, 9, 31)])
         .rangeRound([0, 10 * 90]))
 
   ];
@@ -133,12 +133,16 @@ d3.csv("data/data.json", function(flights) {
   }
 
   // Like d3.time.format, but faster.
+//  function parseDate(d) {
+//    return new Date(2001,
+//        d.substring(0, 2) - 1,
+//        d.substring(2, 4),
+//        d.substring(4, 6),
+//        d.substring(6, 8));
+//  }
   function parseDate(d) {
-    return new Date(2001,
-        d.substring(0, 2) - 1,
-        d.substring(2, 4),
-        d.substring(4, 6),
-        d.substring(6, 8));
+    //dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+    return new Date(d)
   }
 
   window.filter = function(filters) {
