@@ -1,9 +1,14 @@
 require 'sinatra'
 require 'json'
 
+get '/index' do
+  erb :index
+end
+
 get '/show' do
 #  @data = get '/data'  <-- that didn't work.
-  
+  # Recording type
+
   @data =   [{
                  :ident => "12345",
                  :recording_time => "02/21/2013",
